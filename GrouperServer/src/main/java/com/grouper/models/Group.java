@@ -10,9 +10,9 @@ public class Group {
 
     public static final String EMPTY_GROUP_ID = "00000000";
 
-    private static final String DEFAULT_GROUP_NAME = "NO_GROUP_NAME";
-    private static final String DEFAULT_GROUP_TYPE = "NO_GROUP_TYPE";
-    private static final String DEFAULT_GROUP_DESCRIPTION = "NO_GROUP_DESCRIPTION";
+    public static final String DEFAULT_GROUP_NAME = "NO_GROUP_NAME";
+    public static final String DEFAULT_GROUP_TYPE = "NO_GROUP_TYPE";
+    public static final String DEFAULT_GROUP_DESCRIPTION = "NO_GROUP_DESCRIPTION";
 
     private static final String PROJECT_GROUP_TYPE = "PROJECT_GROUP_TYPE";
     private static final String HACKATHON_GROUP_TYPE = "HACKATHON_GROUP_TYPE";
@@ -79,6 +79,7 @@ public class Group {
 
         public GroupBuilder withGroupOwner(String groupOwner) {
             this.groupOwner = groupOwner;
+            this.groupUsers.add(groupOwner);
             return this;
         }
 
@@ -88,13 +89,9 @@ public class Group {
         }
 
         public GroupBuilder withGroupUsers(List<String> stringList) {
-            ArrayList<String> groupUsers = new ArrayList<>();
-
             for (String userId : stringList) {
-                groupUsers.add(userId);
+                this.groupUsers.add(userId);
             }
-
-            this.groupUsers = groupUsers;
             return this;
         }
 
@@ -151,12 +148,12 @@ public class Group {
         return this.groupSkillSet;
     }
 
-    public void addUser(User user) {
-        this.groupUsers.add(user.getUserId());
+    public void addUser(String userId) {
+        this.groupUsers.add(userId);
     }
 
-    public void removeUser(User user) {
-        this.groupUsers.remove(user.getUserId());
+    public void removeUser(String userId) {
+        this.groupUsers.remove(userId);
     }
 
     public ArrayList<String> getGroupUsers() {

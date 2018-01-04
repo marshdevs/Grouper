@@ -6,26 +6,34 @@ import com.grouper.models.User;
 
 import java.util.HashMap;
 
-public class CreateUserRequest {
+public class UpdateUserRequest {
 
+    private String userId;
     private String userName;
     private String userOccupation;
     private HashMap<String, Boolean> userSkills;
-    private String userEventId;
 
-    public CreateUserRequest(){
+    public UpdateUserRequest(){
+        this.userId = User.EMPTY_USER_ID;
         this.userName = User.DEFAULT_USER_NAME;
         this.userOccupation = User.DEFAULT_USER_OCCUPATION;
         this.userSkills = new SkillSet().getSkills();
-        this.userEventId = Event.EMPTY_EVENT_ID;
     }
 
-    public CreateUserRequest(String userName, String userOccupation, HashMap<String, Boolean> userSkills, String
-        userEventId) {
+    public UpdateUserRequest(String userId, String userName, String userOccupation, HashMap<String, Boolean>
+        userSkills) {
+        this.userId = userId;
         this.userName = userName;
         this.userOccupation = userOccupation;
         this.userSkills = userSkills;
-        this.userEventId = userEventId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public void setUserName(String userName) {
@@ -50,14 +58,6 @@ public class CreateUserRequest {
 
     public HashMap<String, Boolean> getUserSkills() {
         return userSkills;
-    }
-
-    public void setUserEventId(String userEventId) {
-        this.userEventId = userEventId;
-    }
-
-    public String getUserEventId() {
-        return userEventId;
     }
 
 }

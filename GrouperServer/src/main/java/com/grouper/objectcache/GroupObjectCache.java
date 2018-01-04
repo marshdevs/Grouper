@@ -197,6 +197,34 @@ public class GroupObjectCache {
         logResult(status, description, GROUP_OBJECT_KEY, group);
     }
 
+    public void deleteObject(String groupId) {
+        int status = Message.DEFAULT_SUCCESS_STATUS;
+        String description = Message.AWS_DELETE_SUCCESS;
+
+        Map<String, AttributeValue> key = new HashMap<>();
+        key.put(GROUP_ID_KEY, new AttributeValue()
+            .withS(groupId));
+
+        DeleteItemRequest request = new DeleteItemRequest()
+            .withTableName(GROUP_TABLE_NAME)
+            .withKey(key);
+        DeleteItemResult result = GrouperServiceApplication.dynamoClient.deleteItem(request);
+        groupObjectCache.put(groupId, new Group.GroupBuilder(Group.EMPTY_GROUP_ID)
+            .build());
+
+        try {
+
+        } catch (AmazonServiceException ase) {
+            System.err.println(ase);
+            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Delete user " +
+                "failed.");
+            status = Message.DEFAULT_FAILURE_STATUS;
+            description = Message.AWS_DELETE_FAILURE;
+        }
+
+        logResult(status, description, GROUP_ID_KEY, groupId);
+    }
+
     private void logResult(int status, String description, String field, Object value) {
         System.out.println(new Message.MessageBuilder(status)
             .withDescription(description)

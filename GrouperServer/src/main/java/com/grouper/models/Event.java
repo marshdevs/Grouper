@@ -14,10 +14,10 @@ public class Event {
     public static final String EMPTY_EVENT_ID = "00000000";
     public static final String EVENT_DATE_FORMAT = "EEEE, d MMM yyyy, h:mm a zzzz";
 
-    private static final String DEFAULT_EVENT_NAME = "NO_EVENT_NAME";
-    private static final Date DEFAULT_EVENT_DATE = Date.from(Instant.now());
-    private static final String DEFAULT_EVENT_LOCATION = "NO_EVENT_LOCATION";
-    private static final String DEFAULT_EVENT_DESCRIPTION = "NO_EVENT_DESCRIPTION";
+    public static final String DEFAULT_EVENT_NAME = "NO_EVENT_NAME";
+    public static final Date DEFAULT_EVENT_DATE = Date.from(Instant.now());
+    public static final String DEFAULT_EVENT_LOCATION = "NO_EVENT_LOCATION";
+    public static final String DEFAULT_EVENT_DESCRIPTION = "NO_EVENT_DESCRIPTION";
 
     private final String eventId;
     private String eventName;
@@ -144,24 +144,24 @@ public class Event {
         return this.eventGroups;
     }
 
-    public void addGroup(Group group) {
-        this.eventGroups.add(group.getGroupId());
+    public void addGroup(String groupId) {
+        this.eventGroups.add(groupId);
     }
 
-    public void removeGroup(Group group) {
-        this.eventGroups.remove(group.getGroupId());
+    public void removeGroup(String groupId) {
+        this.eventGroups.remove(groupId);
     }
 
     public ArrayList<String> getEventUsers() {
         return this.eventUsers;
     }
 
-    public void addUser(User user) {
-        this.eventGroups.add(user.getUserId());
+    public void addUser(String userId) {
+        this.eventGroups.add(userId);
     }
 
-    public void removeUser(User user) {
-        this.eventGroups.remove(user.getUserId());
+    public void removeUser(String userId) {
+        this.eventGroups.remove(userId);
     }
 
 }

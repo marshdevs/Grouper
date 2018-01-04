@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.grouper.objectcache.GroupObjectCache;
 import com.grouper.service.GrouperServiceApplication;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -105,20 +106,22 @@ public class User {
         return this.userSkillSet;
     }
 
-    public void addEvent(Event event) {
-        this.userEventMap.put(event.getEventId(), Group.EMPTY_GROUP_ID);
+    public void addEvent(String eventId) {
+        this.userEventMap.put(eventId, Group.EMPTY_GROUP_ID);
     }
 
-    public void removeEvent(Event event) {
-        this.userEventMap.remove(event.getEventId());
+    public void removeEvent(String eventId) {
+        this.userEventMap.remove(eventId);
     }
 
-    public void addGroup(Group group) {
-        this.userEventMap.replace(group.getGroupEvent(), group.getGroupId());
+    public void addGroup(String groupId, String eventId) {
+        this.userEventMap.replace(eventId, groupId);
     }
 
-    public void removeGroup(Group group) {
-        this.userEventMap.replace(group.getGroupEvent(), Group.EMPTY_GROUP_ID);
+    public void removeGroup(String groupId, String eventId) {
+        if (this.userEventMap.get(eventId) == groupId) {
+            this.userEventMap.replace(eventId, null);
+        }
     }
 
     public HashMap<String, String> getUserEventMap() {
