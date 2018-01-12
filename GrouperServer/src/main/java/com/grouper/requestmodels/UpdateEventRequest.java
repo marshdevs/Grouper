@@ -7,12 +7,30 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Update Event Request
+ *
+ * UpdateEventRequest should be a POST request of type (application/json;charset=UTF-8), with the required params
+ * in the body.
+ *
+ * This request is not for updates to eventUsers or eventGroups. Additions/deletions of those have their own
+ * dedicated request.
+ */
 public class UpdateEventRequest {
-
+    /** String eventId of the event to be updated {eventId: string}
+     */
     private String eventId;
+    /** String event name {eventName: String}
+     */
     private String eventName;
+    /** String event date, in the format "EEEE, d MMM yyyy, h:mm a zzzz" {eventDate: String}
+     */
     private Date eventDate;
+    /** String event location {eventLocation: String} (TODO: use geo instead)
+     */
     private String eventLocation;
+    /** String event description {eventDescription: String}
+     */
     private String eventDescription;
 
     UpdateEventRequest() {
@@ -24,7 +42,7 @@ public class UpdateEventRequest {
     }
 
     UpdateEventRequest(String eventId, String eventName, Date eventDate, String eventLocation, String
-        eventDescription, ArrayList<String> eventGroups, ArrayList<String> eventUsers) {
+        eventDescription) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDate = eventDate;

@@ -5,10 +5,21 @@ import com.grouper.models.Group;
 
 import java.util.ArrayList;
 
+/**
+ * Delete Group Request
+ *
+ * DeleteGroupRequest should be a DELETE request of type (application/json;charset=UTF-8), with the required
+ * params in the body.
+ */
 public class DeleteGroupRequest {
-
+    /** String groupId of the group to be deleted {groupId: String}
+     */
     private String groupId;
+    /** String eventId of the event this group belongs to {groupEventId: String}
+     */
     private String groupEventId;
+    /** [String] list of userIds belonging to this group {groupUsers: [String]}
+     */
     private ArrayList<String> groupUsers;
 
     DeleteGroupRequest() {

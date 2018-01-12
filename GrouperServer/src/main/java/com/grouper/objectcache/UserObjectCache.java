@@ -103,7 +103,7 @@ public class UserObjectCache {
         return user;
     }
 
-    public void updateObject(User user) {
+    public Message updateObject(User user) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_UPDATE_SUCCESS;
 
@@ -139,9 +139,15 @@ public class UserObjectCache {
         }
 
         logResult(status, description, USER_OBJECT_KEY, user);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(USER_ID_KEY)
+            .withValue(user.getUserId())
+            .build();
     }
 
-    public void putObject(User user) {
+    public Message putObject(User user) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_PUT_SUCCESS;
 
@@ -176,9 +182,15 @@ public class UserObjectCache {
         }
 
         logResult(status, description, USER_OBJECT_KEY, user);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(USER_ID_KEY)
+            .withValue(user.getUserId())
+            .build();
     }
 
-    public void deleteObject(String userId) {
+    public Message deleteObject(String userId) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_DELETE_SUCCESS;
 
@@ -204,6 +216,12 @@ public class UserObjectCache {
         }
 
         logResult(status, description, USER_ID_KEY, userId);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(USER_ID_KEY)
+            .withValue(userId)
+            .build();
     }
 
     private void logResult(int status, String description, String field, Object value) {

@@ -7,13 +7,33 @@ import com.grouper.models.User;
 
 import java.util.HashMap;
 
-public class CreateGroupRequest {
+/**
+ * Create Group Request
+ *
+ * CreateGroupRequest should be a POST request of type (application/json;charset=UTF-8) with the required
+ * parameters in the body.
+ *
+ * These parameters will be provided in the create group view controller
+ */
 
+public class CreateGroupRequest {
+    /** String name of the group {groupName: string}
+     */
     private String groupName;
+    /** String group type (class, hackathon, startup) {groupType: string}
+     */
     private String groupType;
+    /** String groupDescription {groupDescription: string}
+     */
     private String groupDescription;
+    /** String id of the event the group belongs to {groupEventId: string}
+     */
     private String groupEventId;
+    /** String id of the owner of the group {groupOwnerId: string}
+     */
     private String groupOwnerId;
+    /** Map(string: boolean), depicting the skills the group needs {groupSkills: Map(String, Boolean)}
+     */
     private HashMap<String, Boolean> groupSkills;
 
     CreateGroupRequest() {

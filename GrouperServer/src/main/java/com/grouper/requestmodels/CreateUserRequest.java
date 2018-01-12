@@ -6,26 +6,36 @@ import com.grouper.models.User;
 
 import java.util.HashMap;
 
-public class CreateUserRequest {
+/**
+ * Create User Request
+ *
+ * CreateUserRequest should be a POST request of type (application/json;charset=UTF-8) with the required
+ * parameters in the body.
+ *
+ * These parameters will be provided in the profile creation view controller
+ */
 
+public class CreateUserRequest {
+    /** String user's name {userName: string}
+     */
     private String userName;
+    /** String user's occupation {userOccupation: String}
+     */
     private String userOccupation;
+    /** Map(string: boolean) skills belonging to the user {userSkills: Map(String: Boolean)}
+     */
     private HashMap<String, Boolean> userSkills;
-    private String userEventId;
 
     public CreateUserRequest(){
         this.userName = User.DEFAULT_USER_NAME;
         this.userOccupation = User.DEFAULT_USER_OCCUPATION;
         this.userSkills = new SkillSet().getSkills();
-        this.userEventId = Event.EMPTY_EVENT_ID;
     }
 
-    public CreateUserRequest(String userName, String userOccupation, HashMap<String, Boolean> userSkills, String
-        userEventId) {
+    public CreateUserRequest(String userName, String userOccupation, HashMap<String, Boolean> userSkills) {
         this.userName = userName;
         this.userOccupation = userOccupation;
         this.userSkills = userSkills;
-        this.userEventId = userEventId;
     }
 
     public void setUserName(String userName) {
@@ -50,14 +60,6 @@ public class CreateUserRequest {
 
     public HashMap<String, Boolean> getUserSkills() {
         return userSkills;
-    }
-
-    public void setUserEventId(String userEventId) {
-        this.userEventId = userEventId;
-    }
-
-    public String getUserEventId() {
-        return userEventId;
     }
 
 }

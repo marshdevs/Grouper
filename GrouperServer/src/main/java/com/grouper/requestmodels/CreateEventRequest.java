@@ -6,11 +6,27 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class CreateEventRequest {
+/**
+ * Create Event Request
+ *
+ * CreateEventRequest should be a POST request of type (application/json;charset=UTF-8), with the required
+ * parameters in the body.
+ *
+ * These parameters will be provided in the event creation view controller
+ */
 
+public class CreateEventRequest {
+    /** String name of the event. {eventName: string}
+     */
     private String eventName;
+    /** String date of the event, in the format "EEEE, d MMM yyyy, h:mm a zzzz" {eventDate: string}
+     */
     private Date eventDate;
+    /** string location of the event {eventLocation: string} (TODO: use geo instead)
+     */
     private String eventLocation;
+    /** string description of the event {eventDescription: string}
+     */
     private String eventDescription;
 
     CreateEventRequest() {

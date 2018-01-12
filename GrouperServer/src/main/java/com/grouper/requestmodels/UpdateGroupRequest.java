@@ -8,14 +8,36 @@ import com.grouper.models.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Update Group Request
+ *
+ * UpdateGroupRequest should be a POST request of type (application/json;charset=UTF-8), with the required params
+ * in the body.
+ *
+ * This request is not for updates to groupUsers. Additions/deletions of users have their own dedicated requests.
+ */
 public class UpdateGroupRequest {
 
+    /** String groupId to be updated {groupId: String}
+     */
     private String groupId;
+    /** String group name {groupName: String}
+     */
     private String groupName;
+    /** String group type (in hackathon, class, startup) {groupType: String}
+     */
     private String groupType;
+    /** String group description {groupDescription: String}
+     */
     private String groupDescription;
+    /** string eventId the group belongs to (never updated, should probably remove) {groupEventId: String}
+     */
     private String groupEventId;
+    /** String userId of the group's owner {groupOwnerId: String}
+     */
     private String groupOwnerId;
+    /** Map(String: boolean), skills the group is in need of {groupSkills: Map(String: Boolean)}
+     */
     private HashMap<String, Boolean> groupSkills;
 
     UpdateGroupRequest() {

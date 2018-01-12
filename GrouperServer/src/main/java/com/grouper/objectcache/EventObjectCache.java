@@ -97,7 +97,8 @@ public class EventObjectCache {
         if (event.getEventId() == Event.EMPTY_EVENT_ID) {
             status = Message.DEFAULT_FAILURE_STATUS;
             description = Message.AWS_GET_FAILURE;
-            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Get user failed" +
+            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Get event " +
+                "failed" +
                 ".");
         } else {
             status = Message.DEFAULT_SUCCESS_STATUS;
@@ -108,7 +109,7 @@ public class EventObjectCache {
         return event;
     }
 
-    public void updateObject(Event event) {
+    public Message updateObject(Event event) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_UPDATE_SUCCESS;
 
@@ -140,7 +141,7 @@ public class EventObjectCache {
             eventObjectCache.put(event.getEventId(), event);
 
         } catch (AmazonServiceException ase) {
-            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Group update " +
+            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Event update " +
                 "failed.");
             System.err.println(ase);
             status = Message.DEFAULT_FAILURE_STATUS;
@@ -148,9 +149,15 @@ public class EventObjectCache {
         }
 
         logResult(status, description, EVENT_OBJECT_KEY, event);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(EVENT_ID_KEY)
+            .withValue(event.getEventId())
+            .build();
     }
 
-    public void putObject(Event event) {
+    public Message putObject(Event event) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_PUT_SUCCESS;
 
@@ -182,16 +189,22 @@ public class EventObjectCache {
 
         } catch (AmazonServiceException ase) {
             System.err.println(ase);
-            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Create user " +
+            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Create event " +
                 "failed.");
             status = Message.DEFAULT_FAILURE_STATUS;
             description = Message.AWS_PUT_FAILURE;
         }
 
         logResult(status, description, EVENT_OBJECT_KEY, event);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(EVENT_ID_KEY)
+            .withValue(event.getEventId())
+            .build();
     }
 
-    public void deleteObject(String eventId) {
+    public Message deleteObject(String eventId) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_DELETE_SUCCESS;
 
@@ -210,13 +223,19 @@ public class EventObjectCache {
 
         } catch (AmazonServiceException ase) {
             System.err.println(ase);
-            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Delete user " +
+            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Delete event " +
                 "failed.");
             status = Message.DEFAULT_FAILURE_STATUS;
             description = Message.AWS_DELETE_FAILURE;
         }
 
         logResult(status, description, EVENT_ID_KEY, eventId);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(EVENT_ID_KEY)
+            .withValue(eventId)
+            .build();
     }
 
     private void logResult(int status, String description, String field, Object value) {

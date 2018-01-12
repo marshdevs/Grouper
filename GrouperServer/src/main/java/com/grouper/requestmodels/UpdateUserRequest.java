@@ -6,11 +6,28 @@ import com.grouper.models.User;
 
 import java.util.HashMap;
 
+/**
+ * Update User Request
+ *
+ * UpdateUserRequest should be a POST request of type (application/json;charset=UTF-8), with the required params
+ * in the body.
+ *
+ * This request is not for updates to userEventMap (addition/removal of events, addition/removal of groups).
+ * Those operations have their own dedicated requests.
+ */
 public class UpdateUserRequest {
-
+    /**
+     * String userId to be updated {userId: String}
+     */
     private String userId;
+    /** String user name {userName: String}
+     */
     private String userName;
+    /** String user occupation {userOccupation: String}
+     */
     private String userOccupation;
+    /** Map(String: Boolean), skills belonging to the user {userSkills: Map(String: Boolean)}
+     */
     private HashMap<String, Boolean> userSkills;
 
     public UpdateUserRequest(){

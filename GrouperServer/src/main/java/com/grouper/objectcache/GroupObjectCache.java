@@ -99,7 +99,8 @@ public class GroupObjectCache {
         if (group.getGroupId() == Group.EMPTY_GROUP_ID) {
             status = Message.DEFAULT_FAILURE_STATUS;
             description = Message.AWS_GET_FAILURE;
-            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Get user failed" +
+            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Get group " +
+                "failed" +
                 ".");
         } else {
             status = Message.DEFAULT_SUCCESS_STATUS;
@@ -110,7 +111,7 @@ public class GroupObjectCache {
         return group;
     }
 
-    public void updateObject(Group group) {
+    public Message updateObject(Group group) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_UPDATE_SUCCESS;
 
@@ -152,9 +153,15 @@ public class GroupObjectCache {
         }
 
         logResult(status, description, GROUP_OBJECT_KEY, group);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(GROUP_ID_KEY)
+            .withValue(group.getGroupId())
+            .build();
     }
 
-    public void putObject(Group group) {
+    public Message putObject(Group group) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_PUT_SUCCESS;
 
@@ -188,16 +195,22 @@ public class GroupObjectCache {
 
         } catch (AmazonServiceException ase) {
             System.err.println(ase);
-            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Create user " +
+            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Create group " +
                 "failed.");
             status = Message.DEFAULT_FAILURE_STATUS;
             description = Message.AWS_PUT_FAILURE;
         }
 
         logResult(status, description, GROUP_OBJECT_KEY, group);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(GROUP_ID_KEY)
+            .withValue(group.getGroupId())
+            .build();
     }
 
-    public void deleteObject(String groupId) {
+    public Message deleteObject(String groupId) {
         int status = Message.DEFAULT_SUCCESS_STATUS;
         String description = Message.AWS_DELETE_SUCCESS;
 
@@ -216,13 +229,19 @@ public class GroupObjectCache {
 
         } catch (AmazonServiceException ase) {
             System.err.println(ase);
-            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Delete user " +
+            System.err.println(Date.from(Instant.now()).toString() + ": Amazon Service Exception ---- Delete group " +
                 "failed.");
             status = Message.DEFAULT_FAILURE_STATUS;
             description = Message.AWS_DELETE_FAILURE;
         }
 
         logResult(status, description, GROUP_ID_KEY, groupId);
+
+        return new Message.MessageBuilder(status)
+            .withDescription(description)
+            .withField(GROUP_ID_KEY)
+            .withValue(groupId)
+            .build();
     }
 
     private void logResult(int status, String description, String field, Object value) {
