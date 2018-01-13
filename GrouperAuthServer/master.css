@@ -1,0 +1,47 @@
+.title-box {
+    background-color: #232323;
+    font-size: 1.5em;
+    line-height: 0.5vw;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 10px;
+    padding: 20px 0;
+    margin: 20px auto;
+}
+
+.login-box {
+    background-color: white;
+    border: 1px solid #232323;
+    border-radius: 10px;
+    text-align: center;
+    margin: 30px auto;
+    padding: 50px;
+}
+
+h2 {
+    color: red;
+}
+
+a {
+    color: white;
+}
+
+input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    margin-bottom: 20px;
+}
+
+img {
+    margin: 20px auto;
+    margin-top: 250px;
+    width: 30%;
+}
+
+button {
+    margin-bottom: 20px;
+}
